@@ -25,7 +25,6 @@ const Styles = StyleSheet.create({
     backgroundColor: "gainsboro",
   padding: 10,
   borderRadius: 5,
-
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
