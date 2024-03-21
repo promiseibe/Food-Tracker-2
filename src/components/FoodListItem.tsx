@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
 
 
 // Food List Component
 
 export const FoodListItem = ({item}) => {
+
   return (
 <View
     style={Styles.foodList}
@@ -22,7 +24,7 @@ export const FoodListItem = ({item}) => {
 
 const Styles = StyleSheet.create({
   foodList: {
-    backgroundColor: "gainsboro",
+    backgroundColor: "#f6f6f8",
   padding: 10,
   borderRadius: 5,
   flexDirection: "row",
