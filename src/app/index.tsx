@@ -20,7 +20,7 @@ export default function App() {
     <View style={styles.container}>
       {/* Food Item View */}
       <TextInput value={search} placeholder="Search..." onChangeText={setSearch} style={styles.input}/>
-      {search && <Button title="Submit" onPress={performSearch} />}
+      {search && <Button title="Search" onPress={performSearch} />}
       <FlatList
         data={foodItems}
         renderItem={({ item }) => <FoodListItem item={item} /> }
