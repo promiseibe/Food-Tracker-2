@@ -1,5 +1,5 @@
 import { Link } from 'expo-router'
-import { ActivityIndicator, Alert, Button, FlatList, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { gql, useQuery } from '@apollo/client';
 import dayjs from 'dayjs';
@@ -7,16 +7,24 @@ import { FoodlogListItem } from '../components/FoodLogListItem';
 
 const query = gql `
 query foodLogsForDate ($date: Date!, $user_id: String!) {
-  foodLogsForDate(date: $date, user_id: $user_id) {
+  KcalTotalForDate(date: $date, user_id: $user_id) {
+       total_kcal
+  }
+  foodLogsForDate,(date: $date, user_id: $user_id) {
     food_id
     label
     user_id
     created_at
     kcal
-    id
-  }
+    id 
+ 
+  },
+
 }
-`
+`  
+// (date: $date, user_id: $user_id) {
+   
+//   }
 
   
 export default function HomeScreen() {
@@ -39,13 +47,15 @@ return Alert.alert(error.message)
   }
 
   console.log(data)
+
+
   return (
     <View style={styles.container}>  
     <View style={styles.headerRow}>
 
  
     <Text style={styles.text}>Calories</Text>
-    <Text>1770 - 360 = 1692</Text>
+    <Text>total kcal: {data.KcalTotalForDate.total_kcal}</Text>
        </View>
 
 
@@ -54,9 +64,14 @@ return Alert.alert(error.message)
 
  
     <Text style={styles.text}>Today's Food</Text>
-        <Link href="/search" asChild>
-         <Button title='Add Food' />
-            </Link>
+
+          <TouchableOpacity>        
+            <Link href="/search" asChild>
+               <Button title='Add Food' color={"red"} />
+               </Link>
+          </TouchableOpacity>
+      
+            {/* </Link> */}
        </View>
       <FlatList data={data.foodLogsForDate} contentContainerStyle={{gap: 5}} renderItem={({item}) => <FoodlogListItem item={item}/>} />
     </View>
@@ -71,7 +86,11 @@ const styles = StyleSheet.create({
     },
     headerRow: {
         flexDirection: "row",
-        justifyContent: "space-between"},
+        justifyContent: "space-between",
+         backgroundColor: "lightblue",
+         padding: 10
+      },
+     
     text: {
         fontSize: 18,
          fontWeight: "500",
